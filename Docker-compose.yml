@@ -1,0 +1,52 @@
+#docker compose de los contenedores.
+services:
+
+  #contenedor de dns pihole
+  pihole:
+    container_name: pihole-dns
+    image: pihole/pihole:latest
+    ports:
+      # DNS Ports
+      - "53:53/tcp"
+      - "53:53/udp"
+      # Puerto http que usara el contenedor usara la 30001
+      - "30001:80/tcp"
+      # Puertos por defecto para la interfaz de administracionweb usara la 30000
+      - "30000:443/tcp"
+    environment:
+      # Esta es la Time Zone que usa el dns
+      TZ: 'Europe/Madrid'
+      # Pone una contraseña a la interfaz web
+      FTLCONF_webserver_api_password: 'admin123'
+    # Volumenes, se usaran para guardar los datos para que se mantengas entre las diferentes actualizaciones
+    volumes:
+      # Para que se mantengas los archivos de la base de datos de pihole 
+      - './etc-pihole:/etc/pihole'
+    networks:
+       mi_red:
+        ipv4_address: 172.2.0.2 #esta es la ip fija que va a usar el dns para que el ubuntu pueda preguntarle por nombre de dominio dentro de la red
+    restart: unless-stopped
+  # Servicio que ejecuta un servidor web Apache
+  apache:
+    image: httpd:latest # Imagen oficial de Apache HTTP Server
+    container_name: apache # Nombre del contenedor
+    ports:
+      - 8080:80 # Expone el puerto 80 del contenedor como 8080 en el host
+    volumes:
+      - ./web:/usr/local/apache2/htdocs # Carpeta local "web" servida como raíz del sitio weba aqui puedes poner tus paginas para que las muestre tu servidor
+    cap_add:
+      # El valor net admin para que sea adminitrador de la red
+      - NET_ADMIN
+    networks:
+       mi_red: # Conecta este contenedor a la misma red que Windows
+        ipv4_address: 172.2.0.3 #esta es la ip fija que va a usar el servidor que tiene el nombre personalizado en el dns
+    dns:
+      - 172.2.0.2 # aqui usa como dns el contenedor de pihole
+    restart: unless-stopped
+# Definición de la red personalizada de Docker
+networks:
+  mi_red:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.2.0.0/16 #esta es la direccion que usaran los contenedores dentro de la red mired

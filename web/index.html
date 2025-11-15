@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: antiquewhite;
+        }
+
+        form input {
+            margin-right: 0.2em;
+            padding: 0.5em;
+        }
+
+        #contador {
+            color: rgb(51, 158, 158);
+            font-size: xx-large;
+            margin-top:1em ;
+        }
+
+        #mensaje {
+            font-size: x-large;
+            margin: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Temporizador interactivo</h1>
+    <p>Introduce los segundos y pulsa “Iniciar”.</p>
+
+    <form name="formulario">
+        <input type="text" id="sec" placeholder="Segundos">
+        <input type="button" id="iniciar" value="Iniciar">
+        <input type="button" id="cancelar" value="Cancelar">
+    </form>
+
+    <div id="contador"></div>
+    <div id="mensaje"></div>
+</body>
+
+</html>
