@@ -22,6 +22,9 @@ services:
     volumes:
       # Para que se mantengas los archivos de la base de datos de pihole 
       - './etc-pihole:/etc/pihole'
+    cap_add:
+      # El valor net admin para que sea adminitrador de la red
+      - NET_ADMIN
     networks:
        mi_red:
         ipv4_address: 172.2.0.2 #esta es la ip fija que va a usar el dns para que el ubuntu pueda preguntarle por nombre de dominio dentro de la red
@@ -34,9 +37,6 @@ services:
       - 8080:80 # Expone el puerto 80 del contenedor como 8080 en el host
     volumes:
       - ./web:/usr/local/apache2/htdocs # Carpeta local "web" servida como raíz del sitio weba aqui puedes poner tus paginas para que las muestre tu servidor
-    cap_add:
-      # El valor net admin para que sea adminitrador de la red
-      - NET_ADMIN
     networks:
        mi_red: # Conecta este contenedor a la misma red que Windows
         ipv4_address: 172.2.0.3 #esta es la ip fija que va a usar el servidor que tiene el nombre personalizado en el dns

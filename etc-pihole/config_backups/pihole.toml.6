@@ -1,7 +1,7 @@
 # Pi-hole configuration file (v6.3.3)
 # Encoding: UTF-8
 # This file is managed by pihole-FTL
-# Last updated on 2025-11-17 23:53:11 CET
+# Last updated on 2025-11-17 23:13:53 CET
 
 [dns]
   # Upstream DNS Servers to be used by Pi-hole. If this is not set, Pi-hole will not
@@ -127,7 +127,9 @@
   # Allowed values are:
   #     Array of custom DNS records each one in HOSTS form: "IP HOSTNAME [HOSTNAME ...]"
   hosts = [
-    "127.0.0.1 mywebserver.local"
+    "172.2.0.3 mywebserver.local",
+    "127.0.0.1 mywebserver.local",
+    "127.0.0.1 www.mywebserver.local"
   ] ### CHANGED, default = []
 
   # If set, queries for plain names, without dots or domain parts, are never forwarded to
@@ -221,9 +223,7 @@
   #
   # Allowed values are:
   #     Array of CNAMEs, each one in the following form: "<cname>,<target>[,<TTL>]"
-  cnameRecords = [
-    "mywebserver.local,www.mywebserver.local"
-  ] ### CHANGED, default = []
+  cnameRecords = []
 
   # Port used by the DNS server
   #
@@ -1670,6 +1670,6 @@
   all = false
 
 # Configuration statistics:
-# 161 total entries out of which 156 entries are default
-# --> 5 entries are modified
+# 161 total entries out of which 157 entries are default
+# --> 4 entries are modified
 

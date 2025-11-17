@@ -17,12 +17,13 @@
 #                       WITHIN /etc/dnsmasq.d/yourname.conf                      #
 #    (make sure misc.etc_dnsmasq_d is set to true in /etc/pihole/pihole.toml)    #
 #                                                                                #
-#                      Last updated: 2025-11-14 13:25:06 CET                     #
+#                      Last updated: 2025-11-18 00:04:17 CET                     #
 #                              by FTL version v6.3.3                             #
 #                                                                                #
 ##################################################################################
 
-172.2.0.3 mywebserver.local
+127.0.0.1 mywebserver.local
+127.0.0.1 www.mywebserver.local
 
 
-# There is 1 entry in this file
+# There are 2 entries in this file
